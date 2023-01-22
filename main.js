@@ -5,6 +5,8 @@ let reseter = document.getElementById('reset');
 
 let timerId = null;
 let elapsed = 0;
+let restart = 0;
+let holdTime = 'start';
 
 function timeTostring(timer){
   const ms = timer % 1000
@@ -22,19 +24,22 @@ function timeTostring(timer){
 
 
 starter.addEventListener('click',function() {
-
-  starter.disabled = true;
-  reseter.disabled = true;
-
-  let started = new Date();
-    timerId = setInterval(function() {
-    let current = Date.now();
-    elapsed =  current - started;  
-    
-    display.textContent =  timeTostring(elapsed)
-
-    }, 10);
+    starter.disabled = true;
+    reseter.disabled = true;
+  
+    let started = new Date();
+      started -= elapsed;
+      timerId = setInterval(function() {
+      let current = Date.now();
+      elapsed =  current - started;  
+      
+      display.textContent =  timeTostring(elapsed)
+      
+      }, 10);
 });
+    
+
+  
 
 stoper.addEventListener('click',function() {
   starter.disabled = false;
@@ -47,3 +52,4 @@ reseter.addEventListener('click',function() {
   display.textContent = `${0}${0}:${0}${0}:${0}${0}.${0}${0}${0}` 
    
 });
+
